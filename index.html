@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>RayCtify Enterprise AI Fairness Suite</title>
+    
+    <!-- Tailwind CSS (CDN as per mockups) -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- Fonts and Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Public+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+    
+    <!-- Custom Styles -->
+    <link href="styles.css" rel="stylesheet"/>
+
+    <!-- Tailwind Config -->
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed": "#c0ecdb",
+                      "primary-fixed": "#c1ecd4",
+                      "on-primary-fixed": "#002114",
+                      "tertiary-fixed": "#ffdcbd",
+                      "tertiary-fixed-dim": "#f0bd8b",
+                      "surface-beige": "#F2EFE9",
+                      "on-tertiary-fixed": "#2c1600",
+                      "inverse-primary": "#a5d0b9",
+                      "on-surface-variant": "#414844",
+                      "on-secondary-fixed": "#002018",
+                      "on-error": "#ffffff",
+                      "dark-primary": "#2D6A4F",
+                      "on-secondary": "#ffffff",
+                      "background": "#fcf9f8",
+                      "background-ivory": "#FCFAF7",
+                      "on-background": "#1c1b1b",
+                      "surface": "#fcf9f8",
+                      "on-tertiary-fixed-variant": "#623f18",
+                      "dark-card": "#1E1E1E",
+                      "tertiary": "#3b1f00",
+                      "error-container": "#ffdad6",
+                      "inverse-surface": "#313030",
+                      "surface-tint": "#3f6653",
+                      "on-secondary-fixed-variant": "#254e42",
+                      "on-primary-container": "#86af99",
+                      "on-surface": "#1c1b1b",
+                      "tertiary-container": "#56340e",
+                      "secondary-container": "#bde9d8",
+                      "surface-dim": "#dcd9d9",
+                      "surface-container-highest": "#e5e2e1",
+                      "outline": "#717973",
+                      "on-secondary-container": "#426a5d",
+                      "primary-fixed-dim": "#a5d0b9",
+                      "secondary": "#3e6659",
+                      "on-error-container": "#93000a",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "secondary-fixed-dim": "#a4d0c0",
+                      "surface-variant": "#e5e2e1",
+                      "on-tertiary-container": "#cd9d6d",
+                      "primary": "#012d1d",
+                      "dark-bg": "#121212",
+                      "on-tertiary": "#ffffff",
+                      "primary-container": "#1b4332",
+                      "surface-container": "#f0eded",
+                      "error": "#ba1a1a",
+                      "on-primary-fixed-variant": "#274e3d",
+                      "outline-variant": "#c1c8c2",
+                      "surface-bright": "#fcf9f8",
+                      "dark-text": "#F8F5F2",
+                      "surface-container-high": "#eae7e7",
+                      "surface-container-low": "#f6f3f2",
+                      "inverse-on-surface": "#f3f0ef"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "container-max": "1440px",
+                      "margin-mobile": "16px",
+                      "margin-desktop": "40px",
+                      "base": "8px"
+              },
+              "fontFamily": {
+                      "data-mono": ["Public Sans"],
+                      "label-md": ["Public Sans"],
+                      "display-lg": ["Playfair Display"],
+                      "body-md": ["Public Sans"],
+                      "headline-md": ["Playfair Display"],
+                      "headline-lg": ["Playfair Display"],
+                      "headline-lg-mobile": ["Playfair Display"],
+                      "title-lg": ["Public Sans"],
+                      "body-lg": ["Public Sans"]
+              },
+              "fontSize": {
+                      "data-mono": ["14px", {"lineHeight": "20px","letterSpacing": "-0.01em","fontWeight": "500"}],
+                      "label-md": ["12px", {"lineHeight": "16px","letterSpacing": "0.05em","fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "56px","letterSpacing": "-0.02em","fontWeight": "700"}],
+                      "body-md": ["14px", {"lineHeight": "20px","fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px","fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px","fontWeight": "600"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px","fontWeight": "600"}],
+                      "title-lg": ["20px", {"lineHeight": "28px","fontWeight": "600"}],
+                      "body-lg": ["16px", {"lineHeight": "24px","fontWeight": "400"}]
+              }
+            }
+          }
+        }
+    </script>
+</head>
+<body class="bg-background-ivory text-on-background min-h-screen flex flex-col font-body-md overflow-x-hidden">
+    <!-- Auth Container -->
+    <div id="auth-content" class="flex-1 w-full flex-col hidden transition-opacity duration-300"></div>
+
+    <!-- SPA Root Container (Shell) -->
+    <div id="shell" class="flex-1 w-full flex-col hidden transition-opacity duration-300">
+        <!-- TopNavBar (Web) -->
+        <nav class="hidden md:flex justify-between items-center w-full px-margin-desktop h-16 sticky top-0 z-50 bg-background-ivory border-b border-surface-variant">
+            <div class="flex items-center gap-base">
+                <img alt="RayCtify Logo" class="h-8 w-8 rounded-md object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJjG1l-P-Ql26S07Cw04ycop55WxOfnwy_Bl7O-75vqyPQe9wlRMcepIACOlJazDrtEtKlbCsrrogtB-X8jAxurQAFi0W0U70Hu4qh50yaS-pSHT6ofJStgbFvXfFp7m4dB6pTQ-XkC9utaWNLMdb1WUerAkFnuWhcSVxnwNeE3dBgSxy0rsyesF5l5CczzbO5woIZtrdibxeKLeezm9nCGT60LFcwTNWOpQm29q7MWu_pWxuavSo"/>
+                <span class="font-headline-md text-headline-md font-bold text-primary">Global Finance Corp</span>
+                <span class="font-label-md text-label-md text-on-surface-variant ml-2 border border-outline-variant px-2 py-0.5 rounded-full">RayCtify</span>
+            </div>
+            
+            <div class="flex-1 max-w-md mx-gutter">
+                <div class="relative w-full">
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-outline">search</span>
+                    <input class="w-full h-12 pl-10 pr-4 rounded-lg bg-surface-beige border border-surface-variant focus:border-primary focus:ring-1 focus:ring-primary font-body-md text-body-md text-on-surface transition-all outline-none" placeholder="Search models, audits..." type="text"/>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-6">
+                <div class="flex items-center gap-4">
+                    <span class="font-body-md text-body-md text-primary border-b-2 border-primary pb-1 cursor-pointer">Global View</span>
+                    <span class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors cursor-pointer">Compliance</span>
+                    <span class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors cursor-pointer">Settings</span>
+                </div>
+                <div class="flex items-center gap-4 text-primary">
+                    <button class="hover:opacity-80 transition-opacity relative">
+                        <span class="material-symbols-outlined">notifications</span>
+                        <span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
+                    </button>
+                    <button class="hover:opacity-80 transition-opacity">
+                        <span class="material-symbols-outlined">contrast</span>
+                    </button>
+                    <button class="hover:opacity-80 transition-opacity flex items-center gap-2 bg-surface-beige px-3 py-1.5 rounded-full">
+                        <span class="material-symbols-outlined">account_circle</span>
+                        <span class="font-label-md text-label-md">Admin</span>
+                    </button>
+                    <button id="logout-btn-top" class="hover:opacity-80 transition-opacity flex items-center gap-2 bg-[#ffdad6] text-[#ba1a1a] px-3 py-1.5 rounded-full ml-2">
+                        <span class="material-symbols-outlined text-[18px]">logout</span>
+                        <span class="font-label-md text-label-md hidden md:block">Logout</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Mobile Header Fallback -->
+        <nav class="md:hidden flex justify-between items-center w-full px-margin-mobile h-16 sticky top-0 z-50 bg-background-ivory border-b border-surface-variant">
+            <div class="flex items-center gap-base">
+                <img alt="RayCtify Logo" class="h-6 w-6 rounded-md object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJjG1l-P-Ql26S07Cw04ycop55WxOfnwy_Bl7O-75vqyPQe9wlRMcepIACOlJazDrtEtKlbCsrrogtB-X8jAxurQAFi0W0U70Hu4qh50yaS-pSHT6ofJStgbFvXfFp7m4dB6pTQ-XkC9utaWNLMdb1WUerAkFnuWhcSVxnwNeE3dBgSxy0rsyesF5l5CczzbO5woIZtrdibxeKLeezm9nCGT60LFcwTNWOpQm29q7MWu_pWxuavSo"/>
+                <span class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">GFC</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <button id="logout-btn-mobile" class="text-error mr-2"><span class="material-symbols-outlined">logout</span></button>
+                <button class="text-primary"><span class="material-symbols-outlined">menu</span></button>
+            </div>
+        </nav>
+
+        <div class="flex flex-1 w-full max-w-container-max mx-auto relative">
+            <!-- SideNavBar (Web) -->
+            <aside class="hidden md:flex fixed left-0 top-16 h-[calc(100vh-64px)] w-64 flex-col p-4 z-40 bg-surface-beige border-r border-surface-variant">
+                <div class="mb-8 px-3">
+                    <h2 class="font-title-lg text-title-lg text-primary mb-1">Bank Dashboard</h2>
+                    <p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Enterprise Tier</p>
+                </div>
+                
+                <nav class="flex-1 space-y-1">
+                    <a href="#/dashboard" class="flex items-center gap-base p-3 mb-1 cursor-pointer text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg font-label-md text-label-md sidebar-link">
+                        <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span> Overview
+                    </a>
+                    <a href="#/auditor" class="flex items-center gap-base p-3 mb-1 cursor-pointer text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg font-label-md text-label-md sidebar-link">
+                        <span class="material-symbols-outlined" data-icon="fact_check">fact_check</span> Auditor
+                    </a>
+                    <a href="#/arena" class="flex items-center gap-base p-3 mb-1 cursor-pointer text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg font-label-md text-label-md sidebar-link">
+                        <span class="material-symbols-outlined" data-icon="swords">swords</span> Arena
+                    </a>
+                    <a href="#/interceptor" class="flex items-center gap-base p-3 mb-1 cursor-pointer text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg font-label-md text-label-md sidebar-link">
+                        <span class="material-symbols-outlined" data-icon="security">security</span> Interceptor
+                    </a>
+                    <a href="#/vaccine" class="flex items-center gap-base p-3 mb-1 cursor-pointer text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg font-label-md text-label-md sidebar-link">
+                        <span class="material-symbols-outlined" data-icon="vaccines">vaccines</span> Vaccine Generator
+                    </a>
+                    <a href="#/decision" class="flex items-center gap-base p-3 mb-1 cursor-pointer text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg font-label-md text-label-md sidebar-link">
+                        <span class="material-symbols-outlined" data-icon="rule">rule</span> Decisions
+                    </a>
+                    <a href="#/reports" class="flex items-center gap-base p-3 mb-1 cursor-pointer text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg font-label-md text-label-md sidebar-link">
+                        <span class="material-symbols-outlined" data-icon="summarize">summarize</span> Reports
+                    </a>
+                </nav>
+                
+                <div class="mt-auto border-t border-surface-variant pt-4 space-y-1">
+                    <a href="#" class="flex items-center gap-base p-3 cursor-pointer text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg font-label-md text-label-md">
+                        <span class="material-symbols-outlined" data-icon="help">help</span> Support
+                    </a>
+                    <a href="#" class="flex items-center gap-base p-3 cursor-pointer text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg font-label-md text-label-md">
+                        <span class="material-symbols-outlined" data-icon="code">code</span> API Docs
+                    </a>
+                    <a href="#" id="logout-btn-side" class="flex items-center gap-base p-3 cursor-pointer text-[#ba1a1a] hover:bg-[#ffdad6] transition-all rounded-lg font-label-md text-label-md">
+                        <span class="material-symbols-outlined" data-icon="logout">logout</span> Logout
+                    </a>
+                </div>
+            </aside>
+            
+            <!-- Main Content Canvas (Dynamic Content) -->
+            <main id="app-content" class="flex-1 w-full md:ml-64 bg-background-ivory min-h-[calc(100vh-64px)] transition-opacity duration-300"></main>
+        </div>
+    </div>
+
+    <!-- Application Scripts -->
+    <script src="backend.js"></script>
+    <script src="pages.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
