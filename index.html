@@ -135,29 +135,27 @@
             <div class="flex-1 max-w-md mx-gutter">
                 <div class="relative w-full">
                     <span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-outline">search</span>
-                    <input class="w-full h-12 pl-10 pr-4 rounded-lg bg-surface-beige border border-surface-variant focus:border-primary focus:ring-1 focus:ring-primary font-body-md text-body-md text-on-surface transition-all outline-none" placeholder="Search models, audits..." type="text"/>
+                    <input id="global-search-input" class="w-full h-12 pl-10 pr-4 rounded-lg bg-surface-beige border border-surface-variant focus:border-primary focus:ring-1 focus:ring-primary font-body-md text-body-md text-on-surface transition-all outline-none" placeholder="Search models, audits..." type="text"/>
                 </div>
             </div>
             
             <div class="flex items-center gap-6">
-                <div class="flex items-center gap-4">
-                    <span class="font-body-md text-body-md text-primary border-b-2 border-primary pb-1 cursor-pointer">Global View</span>
-                    <span class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors cursor-pointer">Compliance</span>
-                    <span class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors cursor-pointer">Settings</span>
+                <div class="flex items-center gap-4" id="topnav-menu-items">
+                    <a href="#/dashboard" class="font-body-md text-body-md text-primary border-b-2 border-primary pb-1 cursor-pointer">Global View</a>
+                    <a href="#/reports" class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors cursor-pointer">Compliance</a>
+                    <a href="#/settings" class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors cursor-pointer">Settings</a>
                 </div>
                 <div class="flex items-center gap-4 text-primary">
-                    <button class="hover:opacity-80 transition-opacity relative">
+                    <button class="hover:opacity-80 transition-opacity relative" title="Notifications">
                         <span class="material-symbols-outlined">notifications</span>
                         <span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
                     </button>
-                    <button class="hover:opacity-80 transition-opacity">
-                        <span class="material-symbols-outlined">contrast</span>
-                    </button>
-                    <button class="hover:opacity-80 transition-opacity flex items-center gap-2 bg-surface-beige px-3 py-1.5 rounded-full">
-                        <span class="material-symbols-outlined">account_circle</span>
-                        <span class="font-label-md text-label-md">Admin</span>
-                    </button>
-                    <button id="logout-btn-top" class="hover:opacity-80 transition-opacity flex items-center gap-2 bg-[#ffdad6] text-[#ba1a1a] px-3 py-1.5 rounded-full ml-2">
+                    <div class="flex items-center gap-2 bg-surface-beige px-3 py-1.5 rounded-full border border-surface-variant shadow-sm" id="user-profile-badge">
+                        <span class="material-symbols-outlined text-primary">account_circle</span>
+                        <span class="font-label-md text-label-md font-semibold text-primary" id="user-display-name">Admin User</span>
+                        <span class="font-label-md text-[10px] px-2 py-0.5 rounded-full bg-primary text-on-primary font-bold uppercase tracking-wider" id="user-role-badge">Admin</span>
+                    </div>
+                    <button id="logout-btn-top" class="hover:opacity-80 transition-opacity flex items-center gap-2 bg-[#ffdad6] text-[#ba1a1a] px-3 py-1.5 rounded-full ml-1" title="Log out">
                         <span class="material-symbols-outlined text-[18px]">logout</span>
                         <span class="font-label-md text-label-md hidden md:block">Logout</span>
                     </button>
@@ -170,6 +168,7 @@
             <div class="flex items-center gap-base">
                 <img alt="RayCtify Logo" class="h-6 w-6 rounded-md object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJjG1l-P-Ql26S07Cw04ycop55WxOfnwy_Bl7O-75vqyPQe9wlRMcepIACOlJazDrtEtKlbCsrrogtB-X8jAxurQAFi0W0U70Hu4qh50yaS-pSHT6ofJStgbFvXfFp7m4dB6pTQ-XkC9utaWNLMdb1WUerAkFnuWhcSVxnwNeE3dBgSxy0rsyesF5l5CczzbO5woIZtrdibxeKLeezm9nCGT60LFcwTNWOpQm29q7MWu_pWxuavSo"/>
                 <span class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">GFC</span>
+                <span id="mobile-role-badge" class="text-[10px] px-2 py-0.5 rounded-full bg-primary text-on-primary font-bold uppercase ml-1">Admin</span>
             </div>
             <div class="flex items-center gap-2">
                 <button id="logout-btn-mobile" class="text-error mr-2"><span class="material-symbols-outlined">logout</span></button>
@@ -180,12 +179,12 @@
         <div class="flex flex-1 w-full max-w-container-max mx-auto relative">
             <!-- SideNavBar (Web) -->
             <aside class="hidden md:flex fixed left-0 top-16 h-[calc(100vh-64px)] w-64 flex-col p-4 z-40 bg-surface-beige border-r border-surface-variant">
-                <div class="mb-8 px-3">
-                    <h2 class="font-title-lg text-title-lg text-primary mb-1">Bank Dashboard</h2>
-                    <p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Enterprise Tier</p>
+                <div class="mb-8 px-3" id="sidebar-header-box">
+                    <h2 class="font-title-lg text-title-lg text-primary mb-1" id="sidebar-title">Bank Dashboard</h2>
+                    <p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider" id="sidebar-subtitle">Enterprise Tier</p>
                 </div>
                 
-                <nav class="flex-1 space-y-1">
+                <nav class="flex-1 space-y-1" id="sidebar-nav-list">
                     <a href="#/dashboard" class="flex items-center gap-base p-3 mb-1 cursor-pointer text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg font-label-md text-label-md sidebar-link">
                         <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span> Overview
                     </a>
