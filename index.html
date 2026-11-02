@@ -119,116 +119,60 @@
     </script>
 </head>
 <body class="bg-background-ivory text-on-background min-h-screen flex flex-col font-body-md overflow-x-hidden">
-    <!-- Auth Container -->
-    <div id="auth-content" class="flex-1 w-full flex-col hidden transition-opacity duration-300"></div>
+    <a href="#app-content" class="sr-only focus:not-sr-only focus:absolute focus:z-[200] focus:m-2 focus:px-3 focus:py-2 focus:bg-primary focus:text-on-primary focus:rounded">Skip to content</a>
+    <div id="toast-stack" aria-live="polite"></div>
 
-    <!-- SPA Root Container (Shell) -->
-    <div id="shell" class="flex-1 w-full flex-col hidden transition-opacity duration-300">
-        <!-- TopNavBar (Web) -->
-        <nav class="hidden md:flex justify-between items-center w-full px-margin-desktop h-16 sticky top-0 z-50 bg-background-ivory border-b border-surface-variant">
-            <div class="flex items-center gap-base">
-                <img alt="RayCtify Logo" class="h-8 w-8 rounded-md object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJjG1l-P-Ql26S07Cw04ycop55WxOfnwy_Bl7O-75vqyPQe9wlRMcepIACOlJazDrtEtKlbCsrrogtB-X8jAxurQAFi0W0U70Hu4qh50yaS-pSHT6ofJStgbFvXfFp7m4dB6pTQ-XkC9utaWNLMdb1WUerAkFnuWhcSVxnwNeE3dBgSxy0rsyesF5l5CczzbO5woIZtrdibxeKLeezm9nCGT60LFcwTNWOpQm29q7MWu_pWxuavSo"/>
-                <span class="font-headline-md text-headline-md font-bold text-primary">Global Finance Corp</span>
-                <span class="font-label-md text-label-md text-on-surface-variant ml-2 border border-outline-variant px-2 py-0.5 rounded-full">RayCtify</span>
+    <!-- Sign-in / sign-up -->
+    <div id="auth-content" class="flex-1 w-full flex-col hidden"></div>
+
+    <!-- App shell -->
+    <div id="shell" class="flex-1 w-full flex-col hidden">
+        <header class="flex items-center justify-between gap-4 w-full px-4 md:px-margin-desktop h-16 sticky top-0 z-50 bg-background-ivory border-b border-surface-variant">
+            <div class="flex items-center gap-3 min-w-0">
+                <button id="menu-btn" class="md:hidden text-primary" aria-label="Open menu" aria-expanded="false" aria-controls="sidebar"><span class="material-symbols-outlined">menu</span></button>
+                <img src="logo.svg" alt="" class="h-8 w-8 shrink-0">
+                <span id="org-name" class="font-headline-md text-headline-md font-bold text-primary truncate">RayCtify</span>
             </div>
-            
-            <div class="flex-1 max-w-md mx-gutter">
+
+            <form id="global-search" role="search" class="hidden md:block flex-1 max-w-md">
                 <div class="relative w-full">
-                    <span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-outline">search</span>
-                    <input id="global-search-input" class="w-full h-12 pl-10 pr-4 rounded-lg bg-surface-beige border border-surface-variant focus:border-primary focus:ring-1 focus:ring-primary font-body-md text-body-md text-on-surface transition-all outline-none" placeholder="Search models, audits..." type="text"/>
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" aria-hidden="true">search</span>
+                    <input id="global-search-input" type="search" aria-label="Search audits" placeholder="Search audits and press Enter" class="w-full h-11 pl-10 pr-4 rounded-lg bg-surface-beige border border-surface-variant focus:border-primary focus:ring-1 focus:ring-primary font-body-md text-body-md"/>
                 </div>
-            </div>
-            
-            <div class="flex items-center gap-6">
-                <div class="flex items-center gap-4" id="topnav-menu-items">
-                    <a href="#/dashboard" class="font-body-md text-body-md text-primary border-b-2 border-primary pb-1 cursor-pointer">Global View</a>
-                    <a href="#/reports" class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors cursor-pointer">Compliance</a>
-                    <a href="#/settings" class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors cursor-pointer">Settings</a>
-                </div>
-                <div class="flex items-center gap-4 text-primary">
-                    <button class="hover:opacity-80 transition-opacity relative" title="Notifications">
-                        <span class="material-symbols-outlined">notifications</span>
-                        <span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
-                    </button>
-                    <div class="flex items-center gap-2 bg-surface-beige px-3 py-1.5 rounded-full border border-surface-variant shadow-sm" id="user-profile-badge">
-                        <span class="material-symbols-outlined text-primary">account_circle</span>
-                        <span class="font-label-md text-label-md font-semibold text-primary" id="user-display-name">Admin User</span>
-                        <span class="font-label-md text-[10px] px-2 py-0.5 rounded-full bg-primary text-on-primary font-bold uppercase tracking-wider" id="user-role-badge">Admin</span>
-                    </div>
-                    <button id="logout-btn-top" class="hover:opacity-80 transition-opacity flex items-center gap-2 bg-[#ffdad6] text-[#ba1a1a] px-3 py-1.5 rounded-full ml-1" title="Log out">
-                        <span class="material-symbols-outlined text-[18px]">logout</span>
-                        <span class="font-label-md text-label-md hidden md:block">Logout</span>
-                    </button>
-                </div>
-            </div>
-        </nav>
+            </form>
 
-        <!-- Mobile Header Fallback -->
-        <nav class="md:hidden flex justify-between items-center w-full px-margin-mobile h-16 sticky top-0 z-50 bg-background-ivory border-b border-surface-variant">
-            <div class="flex items-center gap-base">
-                <img alt="RayCtify Logo" class="h-6 w-6 rounded-md object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJjG1l-P-Ql26S07Cw04ycop55WxOfnwy_Bl7O-75vqyPQe9wlRMcepIACOlJazDrtEtKlbCsrrogtB-X8jAxurQAFi0W0U70Hu4qh50yaS-pSHT6ofJStgbFvXfFp7m4dB6pTQ-XkC9utaWNLMdb1WUerAkFnuWhcSVxnwNeE3dBgSxy0rsyesF5l5CczzbO5woIZtrdibxeKLeezm9nCGT60LFcwTNWOpQm29q7MWu_pWxuavSo"/>
-                <span class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">GFC</span>
-                <span id="mobile-role-badge" class="text-[10px] px-2 py-0.5 rounded-full bg-primary text-on-primary font-bold uppercase ml-1">Admin</span>
+            <div class="flex items-center gap-3 shrink-0">
+                <a id="bell" href="#/appeals" class="relative text-primary hidden" aria-label="Open appeals">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <span id="bell-dot" class="hidden absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-1 rounded-full bg-error text-on-error text-[10px] font-bold leading-4 text-center"></span>
+                </a>
+                <div class="hidden sm:flex items-center gap-2 bg-surface-beige px-3 py-1.5 rounded-full border border-surface-variant" id="user-profile-badge">
+                    <span class="material-symbols-outlined text-primary" aria-hidden="true">account_circle</span>
+                    <span class="font-label-md text-label-md font-semibold text-primary" id="user-display-name"></span>
+                    <span class="text-[10px] px-2 py-0.5 rounded-full bg-primary text-on-primary font-bold uppercase tracking-wider" id="user-role-badge"></span>
+                </div>
+                <button id="logout-btn" class="flex items-center gap-2 bg-[#ffdad6] text-[#ba1a1a] px-3 py-1.5 rounded-full hover:opacity-90" title="Log out">
+                    <span class="material-symbols-outlined text-[18px]" aria-hidden="true">logout</span>
+                    <span class="font-label-md text-label-md hidden sm:block">Log out</span>
+                </button>
             </div>
-            <div class="flex items-center gap-2">
-                <button id="logout-btn-mobile" class="text-error mr-2"><span class="material-symbols-outlined">logout</span></button>
-                <button class="text-primary"><span class="material-symbols-outlined">menu</span></button>
-            </div>
-        </nav>
+        </header>
 
         <div class="flex flex-1 w-full max-w-container-max mx-auto relative">
-            <!-- SideNavBar (Web) -->
-            <aside class="hidden md:flex fixed left-0 top-16 h-[calc(100vh-64px)] w-64 flex-col p-4 z-40 bg-surface-beige border-r border-surface-variant">
-                <div class="mb-8 px-3" id="sidebar-header-box">
-                    <h2 class="font-title-lg text-title-lg text-primary mb-1" id="sidebar-title">Bank Dashboard</h2>
-                    <p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider" id="sidebar-subtitle">Enterprise Tier</p>
+            <aside id="sidebar" class="hidden md:flex fixed left-0 top-16 h-[calc(100vh-64px)] w-64 flex-col p-4 z-40 bg-surface-beige border-r border-surface-variant">
+                <div class="mb-8 px-3">
+                    <h2 class="font-title-lg text-title-lg text-primary mb-1" id="sidebar-title"></h2>
+                    <p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider" id="sidebar-subtitle"></p>
                 </div>
-                
-                <nav class="flex-1 space-y-1" id="sidebar-nav-list">
-                    <a href="#/dashboard" class="flex items-center gap-base p-3 mb-1 cursor-pointer text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg font-label-md text-label-md sidebar-link">
-                        <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span> Overview
-                    </a>
-                    <a href="#/auditor" class="flex items-center gap-base p-3 mb-1 cursor-pointer text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg font-label-md text-label-md sidebar-link">
-                        <span class="material-symbols-outlined" data-icon="fact_check">fact_check</span> Auditor
-                    </a>
-                    <a href="#/arena" class="flex items-center gap-base p-3 mb-1 cursor-pointer text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg font-label-md text-label-md sidebar-link">
-                        <span class="material-symbols-outlined" data-icon="swords">swords</span> Arena
-                    </a>
-                    <a href="#/interceptor" class="flex items-center gap-base p-3 mb-1 cursor-pointer text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg font-label-md text-label-md sidebar-link">
-                        <span class="material-symbols-outlined" data-icon="security">security</span> Interceptor
-                    </a>
-                    <a href="#/vaccine" class="flex items-center gap-base p-3 mb-1 cursor-pointer text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg font-label-md text-label-md sidebar-link">
-                        <span class="material-symbols-outlined" data-icon="vaccines">vaccines</span> Vaccine Generator
-                    </a>
-                    <a href="#/decision" class="flex items-center gap-base p-3 mb-1 cursor-pointer text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg font-label-md text-label-md sidebar-link">
-                        <span class="material-symbols-outlined" data-icon="rule">rule</span> Decisions
-                    </a>
-                    <a href="#/reports" class="flex items-center gap-base p-3 mb-1 cursor-pointer text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg font-label-md text-label-md sidebar-link">
-                        <span class="material-symbols-outlined" data-icon="summarize">summarize</span> Reports
-                    </a>
-                </nav>
-                
-                <div class="mt-auto border-t border-surface-variant pt-4 space-y-1">
-                    <a href="#" class="flex items-center gap-base p-3 cursor-pointer text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg font-label-md text-label-md">
-                        <span class="material-symbols-outlined" data-icon="help">help</span> Support
-                    </a>
-                    <a href="#" class="flex items-center gap-base p-3 cursor-pointer text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg font-label-md text-label-md">
-                        <span class="material-symbols-outlined" data-icon="code">code</span> API Docs
-                    </a>
-                    <a href="#" id="logout-btn-side" class="flex items-center gap-base p-3 cursor-pointer text-[#ba1a1a] hover:bg-[#ffdad6] transition-all rounded-lg font-label-md text-label-md">
-                        <span class="material-symbols-outlined" data-icon="logout">logout</span> Logout
-                    </a>
-                </div>
+                <nav class="flex-1 space-y-1" id="sidebar-nav-list" aria-label="Main"></nav>
             </aside>
-            
-            <!-- Main Content Canvas (Dynamic Content) -->
-            <main id="app-content" class="flex-1 w-full md:ml-64 bg-background-ivory min-h-[calc(100vh-64px)] transition-opacity duration-300"></main>
+            <main id="app-content" tabindex="-1" class="flex-1 w-full md:ml-64 bg-background-ivory min-h-[calc(100vh-64px)] transition-opacity duration-200"></main>
         </div>
     </div>
 
-    <!-- Application Scripts -->
     <script src="backend.js"></script>
-    <script src="pages.js"></script>
     <script src="app.js"></script>
+    <script src="pages.js"></script>
+    <script src="views.js"></script>
 </body>
 </html>
